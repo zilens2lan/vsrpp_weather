@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+</head>
+<body>
+<h3 style="text-align: center">Weather Forecast</h3>
+
+<div style="text-align: center; ">
+    <br>
+    <form class="align-items-center" th:action="@{/weather-gui}" th:object="${setwoeid}" method="post">Pick available city:
+        <label>
+            <select th:field="*{woeid}">
+                <option value="523920"></option>
+                <option value="638242">Berlin</option>
+                <option value="44418">London</option>
+                <option value="862592">Oslo</option>
+                <option value="615702">Paris</option>
+                <option value="721943">Rome</option>
+                <option value="2487956">San Francisco</option>
+                <option value="4118">Toronto</option>
+                <option value="784794">Zurich</option>
+
+            </select>
+        </label>
+        <button type="submit" class="button">Show</button>
+    </form>
+    <br>
+</div>
+
+<table class="table table-striped" style="margin-left:auto; margin-right: auto; width: 75%; text-align: left">
+    <thead>
+    <tr>
+
+        <th scope="col">Forecast for:</th>
+        <th scope="col">Today</th>
+        <th scope="col">Tomorrow</th>
+        <th scope="col" th:text="${dayaftertomorrow}"></th>
+        <th scope="col" th:text="${threedaysfromtoday}"></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th style="vertical-align: top"><p th:text="${weatherForecast.getTitle() + ' in ' + weatherForecast.getParent().getTitle()}">
+        </th>
+
+        <td><img th:width="60px"
+                 th:src="${'https://www.metaweather.com/static/img/weather/'+ weatherForecast.getConsolidatedWeather().get(0).getWeatherStateAbbr() + '.svg'}"
+                 src=" " alt="weather_ico">
+        </td>
+        <td><img th:width="60px"
+                 th:src="${'https://www.metaweather.com/static/img/weather/'+ weatherForecast.getConsolidatedWeather().get(1).getWeatherStateAbbr() + '.svg'}"
+                 src=" " alt="weather_ico"></td>
+        <td><img th:width="60px"
+                 th:src="${'https://www.metaweather.com/static/img/weather/'+ weatherForecast.getConsolidatedWeather().get(2).getWeatherStateAbbr() + '.svg'}"
+                 src=" " alt="weather_ico"></td>
+        <td><img th:width="60px"
+                 th:src="${'https://www.metaweather.com/static/img/weather/'+ weatherForecast.getConsolidatedWeather().get(3).getWeatherStateAbbr() + '.svg'}"
+                 src=" " alt="weather_ico"></td>
+    </tr>
+    <tr style="vertical-align: middle">
+        <td style="text-align: right; ">
+            <p>&nbsp;</p>
+            <p><b>Temperature:</b></p>
+            <p><b>Pressure:</b></p>
+            <p><b>Humidity:</b></p>
+            <p><b>Wind:</b></p>
+        </td>
+
+        <td>
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(0).getWeatherStateName()}">
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(0).getTheTemp()
+        .toString().format('%.1f', weatherForecast.getConsolidatedWeather().get(0).getTheTemp())} +'°C'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(0).getAirPressure()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(0).getAirPressure())} + ' hPa'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(0).getHumidity()} + '%'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(0).getWindSpeed()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(0).getWindSpeed())} + ' mph'">
+        </td>
+
+        <td>
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(1).getWeatherStateName()}">
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(1).getTheTemp()
+        .toString().format('%.1f', weatherForecast.getConsolidatedWeather().get(1).getTheTemp())} +'°C'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(1).getAirPressure()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(1).getAirPressure())} + ' hPa'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(1).getHumidity()} + '%'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(1).getWindSpeed()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(1).getWindSpeed())} + ' mph'">
+        </td>
+
+        <td>
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(2).getWeatherStateName()}">
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(2).getTheTemp()
+        .toString().format('%.1f', weatherForecast.getConsolidatedWeather().get(2).getTheTemp())} +'°C'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(2).getAirPressure()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(2).getAirPressure())} + ' hPa'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(2).getHumidity()} + '%'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(2).getWindSpeed()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(2).getWindSpeed())} + ' mph'">
+        </td>
+
+        <td>
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(3).getWeatherStateName()}">
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(3).getTheTemp()
+        .toString().format('%.1f', weatherForecast.getConsolidatedWeather().get(3).getTheTemp())} +'°C'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(3).getAirPressure()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(3).getAirPressure())} + ' hPa'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(3).getHumidity()} + '%'">
+
+            <p th:text="${weatherForecast.getConsolidatedWeather().get(3).getWindSpeed()
+            .toString().format('%.0f', weatherForecast.getConsolidatedWeather().get(3).getWindSpeed())} + ' mph'">
+        </td>
+
+    </tbody>
+</table>
+</body>
+</html>
